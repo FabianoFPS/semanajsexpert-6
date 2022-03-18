@@ -31,6 +31,16 @@ async function routes(request, response) {
     return stream.pipe(response);
   }
 
+  if (method === 'GET' && url.includes('/stream')) {
+    const {
+      stream,
+      onClose
+    } = controller.createClientStream();
+
+    request.once('close', onClose);
+    https://youtu.be/R2gcusfm6Fw?t=2339
+  }
+
   if (method === 'GET') {
     const {
       stream,
