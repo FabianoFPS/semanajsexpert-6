@@ -1,3 +1,5 @@
+import { once } from 'events';
+
 import config from "./config.js";
 import { Controller } from "./controller.js";
 import { logger } from "./util.js"
@@ -38,7 +40,20 @@ async function routes(request, response) {
     } = controller.createClientStream();
 
     request.once('close', onClose);
-    https://youtu.be/R2gcusfm6Fw?t=2339
+
+    response.writeHead(200, {
+      'Content-Type': 'audio/mpeg',
+      'Accept-Rages': 'bytes'
+    });
+
+    return stream.pipe(response);
+  }
+
+  if (method === 'POST' && url.includes('/controller')) {
+    const data = await once(request, 'data');
+    const item = JSON.parse(data);
+    const result = await controller.handleCommand(item);
+    return response.end(JSON.stringify(result));
   }
 
   if (method === 'GET') {

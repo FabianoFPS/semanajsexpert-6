@@ -14,5 +14,52 @@ services:
       - node_modules:/home/node/spotfy-radio/node_modules
     ports:
       - 3000:3000
+
+  test-e2e:
+    image: spotfy-radio
+    build: .
+    environment:
+      PORT: 3000
+    command: 
+      - npm
+      - rum
+      - test:e2e
+    volumes:
+      - .:/home/node/spotfy-radio/
+      - node_modules:/home/node/spotfy-radio/node_modules
+  
+  test:
+    image: spotfy-radio
+    build: .
+    command: 
+      - npm
+      - rum
+      - test
+    volumes:
+      - .:/home/node/spotfy-radio/
+      - node_modules:/home/node/spotfy-radio/node_modules  
+  
+  test-watch:
+    image: spotfy-radio
+    build: .
+    command: 
+      - npm
+      - rum
+      - test:watch
+    volumes:
+      - .:/home/node/spotfy-radio/
+      - node_modules:/home/node/spotfy-radio/node_modules  
+  
+  test-coverage:
+    image: spotfy-radio
+    build: .
+    command: 
+      - npm
+      - rum
+      - test:coverage
+    volumes:
+      - .:/home/node/spotfy-radio/
+      - node_modules:/home/node/spotfy-radio/node_modules
+
 volumes:
   node_modules: {}
